@@ -3,13 +3,17 @@ import React from "react";
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.handleLogin = this.props.handleLogin.bind(this);
     this.state = {
       username: "",
       password: "",
     };
   }
-
+  handleLogin =(event)=> {
+    event.preventDefault();
+    (this.state.username && this.state.password) ? (
+    this.props.handleLogin(this.state.username, this.state.password)
+    ) : null;
+  }
   handleInputUserChange = (event) => {
     this.setState ({
       username: event.target.value
@@ -24,17 +28,17 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleLogin(this.state.username, this.state.password)}>
+      <form onSubmit={this.handleLogin}>
         <div>
           <label>
             Username
-            <input id="username" name="username" type="text" value={this.state.username} onChange={event => this.handleInputUserChange(event)} required/>
+            <input id="username" name="username" type="text" value={this.state.username} onChange={this.handleInputUserChange} required/>
           </label>
         </div>
         <div>
           <label>
             Password
-            <input id="password" name="password" type="password" value={this.state.password} onChange={event => this.handleInputPasswordChange(event)} required/>
+            <input id="password" name="password" type="password" value={this.state.password} onChange={this.handleInputPasswordChange} required/>
           </label>
         </div>
         <div>
